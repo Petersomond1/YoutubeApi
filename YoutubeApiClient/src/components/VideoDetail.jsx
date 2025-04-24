@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from "react";
 import '../index.css';
 import { useParams, Link } from 'react-router-dom';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import ReactPlayer from 'react-player';
 import { FaCheckCircle } from 'react-icons/fa';
-import React, { useEffect, useState } from "react";
 import { Videos, Loader } from ".";
 
 
@@ -23,6 +23,8 @@ function VideoDetail() {
   if(!videoDetail?.snippet) return <Loader />;
 
   const { snippet: { title, channelId, channelTitle }, statistics: { viewCount, likeCount } } = videoDetail;
+
+
 
   return (
     <div style={{ minHeight: "95vh" }}>
@@ -45,10 +47,12 @@ function VideoDetail() {
             </div>
           </div>
         </div>
+        
         <div style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: "2px", paddingTop: "5px", "@media (min-width: 768px)": { paddingTop: "1px" } }}>
           <Videos videos={videos} direction="column" />
         </div>
       </div>
+      
     </div>
  );
 };

@@ -40,9 +40,10 @@
 //   const { data } = await axios.get(`${BASE_URL}/${url}`, options);
 //   return data;
 //   } 
+import axios from 'axios';
 
 
-const BASE_URL = 'http://localhost:5000/api/media';  // Backend URL
+const BASE_URL = 'http://localhost:3000/api/media';  // Backend URL
 
 export const fetchFromAPI = async (url) => {
   const { data } = await axios.get(`${BASE_URL}/${url}`);

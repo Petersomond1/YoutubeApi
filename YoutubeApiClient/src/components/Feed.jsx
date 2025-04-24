@@ -36,6 +36,8 @@ function Feed() {
     return <div>Loading...</div>;  // Display loading message while fetching data
   }
 
+
+
   return (
     <div className="feed1">
       <div className="feed2">

@@ -20,12 +20,10 @@ import {uploadToS3, generateUploadURL,
 
 
 // // Route to handle generating pre-signed URL
-router.get('/generate-upload-url', generateUploadURL);
-
-router.get('/generate-upload-url', (next) => {
-            console.log('Hit /generate-upload-url route');
+router.get('/generate-upload-url', (_, __, next) => {
+  console.log('Hit /generate-upload-url route');
   next();
-  }, generateUploadURL);
+}, generateUploadURL);
 
 // // Middleware to handle file uploads
 router.use(fileUpload());

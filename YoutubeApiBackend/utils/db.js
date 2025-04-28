@@ -3,30 +3,35 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: './.env' });
 
+console.log('Attempting to connect to the database with the following configuration:');
+console.log({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
+});
 
-// Create the pool
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
 
-// Test the database connection
 (async () => {
   try {
     const connection = await pool.getConnection();
-    const [results] = await connection.query('SELECT 1 + 1 AS result');
-    console.log("Database connection established successfully. Query result:", results[0].result);
-    connection.release(); // Release the connection back to the pool
+    console.log('Database connection established successfully.');
+    connection.release();
   } catch (err) {
-    console.error("Failed to connect to the database:", err.message);
-    process.exit(1); // Exit the process if the database connection fails
+    console.error('Failed to connect to the database:', err.message);
+    process.exit(1);
   }
-});
+})();
 
-// Use the ES module export syntax to export pool
 export { pool };

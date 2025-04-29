@@ -32,18 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// Test the database connection
-(async () => {
-  try {
-    const connection = await pool.getConnection();
-    const [results] = await connection.query('SELECT 1 + 1 AS result');
-    console.log("Database connection established successfully. Query result:", results[0].result);
-    connection.release(); // Release the connection back to the pool
-  } catch (err) {
-    console.error("Failed to connect to the database:", err.message);
-    process.exit(1); // Exit the process if the database connection fails
-  }
-})();
+// // Test the database connection
+// (async () => {
+//   try {
+//     const connection = await pool.getConnection();
+//     const [results] = await connection.query('SELECT 1 + 1 AS result');
+//     console.log("Database connection established successfully. Query result:", results[0].result);
+//     connection.release(); // Release the connection back to the pool
+//   } catch (err) {
+//     console.error("Failed to connect to the database:", err.message);
+//     process.exit(1); // Exit the process if the database connection fails
+//   }
+// })();
 
 app.use('/api/media', mediaRoutes);
 

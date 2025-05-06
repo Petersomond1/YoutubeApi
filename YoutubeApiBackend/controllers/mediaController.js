@@ -4,11 +4,18 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
 import { pool } from '../utils/db.js'; // Assuming you have a DB utility for querying
+import axios from 'axios';
+
 
 dotenv.config();
 
 
 const bucketName = process.env.S3_BUCKET_NAME;
+
+// YouTube API Configuration
+const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;  // Make sure this is set in your .env
+const YOUTUBE_API_URL = 'https://youtube-v31.p.rapidapi.com';
+
 
 // Initialize S3 Client
 const S3 = new S3Client({
@@ -178,5 +185,60 @@ const storeMetadataInDB = async (fileMetadata) => {
   }
 };
 
-export { generateUploadURL, uploadToS3, storeMetadataInDB, upload, S3 }; // Export the functions for use in routes
+
+// Function to fetch YouTube data key options
+const options = {
+  headers: {
+    'X-RapidAPI-Key': YOUTUBE_API_KEY,
+    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+  },
+};
+
+// Function to fetch YouTube data
+const fetchFromYoutube = async (searchTerm) => {
+  try {
+    const { data } = await axios.get(`${YOUTUBE_API_URL}/search`, {
+      params: {
+        q: searchTerm,
+        maxResults: 50,
+      },
+      headers: options.headers,
+    });
+    return data;
+  } catch (error) {
+    console.error('Error fetching from YouTube API:', error);
+    throw new Error('YouTube API request failed');
+  }
+};
+
+// Endpoint to fetch both YouTube and S3 data
+const fetchMediaData = async (req, res) => {
+  const { searchTerm } = req.params;
+
+  try {
+    // Fetch YouTube data
+    const youtubeData = await fetchFromYoutube(searchTerm);
+
+    // Fetch S3 data from your database or directly from the bucket
+    const s3Data = await fetchFromS3(searchTerm); // Assuming you have this function
+
+    // Combine YouTube and S3 results
+    const combinedData = {
+      youtube: youtubeData.items,
+      s3: s3Data.Contents,
+    };
+
+    res.json(combinedData);
+  } catch (error) {
+    console.error('Error fetching media data:', error);
+    res.status(500).json({ message: 'Error fetching media data' });
+  }
+};
+
+
+
+
+
+
+export { generateUploadURL, uploadToS3, storeMetadataInDB, upload, S3, fetchMediaData }; // Export the functions for use in routes
 

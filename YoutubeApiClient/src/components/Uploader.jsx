@@ -59,7 +59,8 @@ const Uploader = ({ onUploadSuccess }) => {
         try {
           console.log("first requets", file)
           // Step 1: Get a pre-signed URL from the backend
-          const { data } = await axios.get('http://localhost:3000/api/media/generate-upload-url', {
+         // const { data } = await axios.get('http://50.17.132.144/api/media/generate-upload-url', {
+            const { data } = await axios.get('https://www.youtube.petersomond.com/api/media/generate-upload-url', {
               params: {
                   fileName: file.name.replace(/\s+/g, '_'),
                   fileType: file.type,
@@ -77,7 +78,7 @@ const Uploader = ({ onUploadSuccess }) => {
           formData.append('file', file); // Field name must match "file"
           formData.append('metadata', JSON.stringify(metadata)); // Attach metadata
       
-          const response = await axios.post('http://localhost:3000/api/media/uploads', formData, {
+          const response = await axios.post('https://www.youtube.petersomond.com/api/media/uploads', formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
           
           onUploadProgress: (progressEvent) => {
@@ -91,7 +92,7 @@ const Uploader = ({ onUploadSuccess }) => {
         if (response.status === 200) {
             console.log('third request to save metadata', data.uploadURL.split('?')[0])
             console.log('metadata', metadata)
-            const uploadResponse = await axios.post('http://localhost:3000/api/media/uploads', {
+            const uploadResponse = await axios.post('https://www.youtube.petersomond.com/api/media/uploads', {
                 fileUrl: data.uploadURL.split('?')[0],
                 metadata: JSON.stringify(metadata),
             });

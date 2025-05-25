@@ -1,5 +1,6 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+//youtube_api\config\db.js
+const mysql = require('mysql2/promise');
+const dotenv = require('dotenv');
 
 dotenv.config({ path: './.env' });
 
@@ -34,4 +35,6 @@ const pool = mysql.createPool({
 //   }
 // })();
 
-export { pool };
+module.exports = { pool };
+
+

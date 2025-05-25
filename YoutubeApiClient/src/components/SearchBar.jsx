@@ -1,37 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
-import '../index.css';
+import "../index.css";
 
 function SearchBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
-    const [searchTerm, setSearchTerm] = useState('');
-    const navigate = useNavigate();
-   
-    const onhandleSubmit = (e) => {
-       e.preventDefault();
-   
-       if (searchTerm) {
-         navigate(`/search/${searchTerm}`);
-         setSearchTerm('');
-       }
-    };
+  const onhandleSubmit = (e) => {
+    e.preventDefault();
 
-    return (
-        <form className='searchbar1' onSubmit={onhandleSubmit}>
+    if (searchTerm) {
+      navigate(`/search/${searchTerm}`);
+      setSearchTerm("");
+    }
+  };
 
-        <input
-        className='searchbar2'
-        placeholder='Search...'
+  return (
+    <form className="searchbar1" onSubmit={onhandleSubmit}>
+      <input
+        className="searchbar2"
+        placeholder="Search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
-        <button type="submit" style={{ padding: '10px', color: 'red' }} aria-label='search'>
-                <CiSearch />
-        </button>
-        </form> 
-    )
+      />
+      <button
+        type="submit"
+        style={{ padding: "10px", color: "red" }}
+        aria-label="search"
+      >
+        <CiSearch />
+      </button>
+    </form>
+  );
 }
 
-export default SearchBar
+export default SearchBar;

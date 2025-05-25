@@ -1,38 +1,72 @@
 /* :root {
+
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+
   line-height: 1.5;
+
+
   font-weight: 400;
 
+
+
+
+
   color-scheme: light dark;
+
+
   color: rgba(255, 255, 255, 0.87);
+
+
   background-color: #242424;
 
+
+
+
+
   font-synthesis: none;
+
+
   text-rendering: optimizeLegibility;
+
+
   -webkit-font-smoothing: antialiased;
+
+
   -moz-osx-font-smoothing: grayscale;
+
+
 } */
 
-html, body {
+html,
+body {
   margin: 0;
+
   padding: 0;
+
   box-sizing: border-box;
+
   background-color: #000;
 }
 
 a {
   text-decoration: none;
+
   color: white;
 }
 
 ::-webkit-scrollbar {
   width: 0px;
+
   height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: rgb(114, 113, 113);
+
   border-radius: 10px;
+
   height: 200px;
 }
 
@@ -41,47 +75,58 @@ a {
 }
 
 .category-btn:hover {
-  background-color: #FC1503 !important;
+  background-color: #fc1503 !important;
+
   color: white !important;
 }
 
-.category-btn:hover span{
+.category-btn:hover span {
   color: white !important;
 }
 
 .react-player {
   height: 77vh !important;
+
   width: 100% !important;
 }
 
-
-
-.category-btn{
+.category-btn {
   font-weight: bold !important;
+
   text-transform: capitalize;
+
   display: flex;
+
   align-items: center;
+
   justify-content: start;
-  cursor:pointer;
+
+  cursor: pointer;
+
   background: transparent;
+
   outline: none;
+
   border: none;
 
   padding: 7px 15px;
+
   margin: 10px 0px;
+
   border-radius: 20px;
+
   transition: all 0.3s ease;
 }
 
 @media screen and (max-width: 900px) {
-  .category-btn{
+  .category-btn {
     margin: 10px;
   }
 }
 
-@media screen and (max-width:800px){
-  .copyright{
-    display:none !important;
+@media screen and (max-width: 800px) {
+  .copyright {
+    display: none !important;
   }
 }
 
@@ -93,241 +138,321 @@ a {
   .react-player {
     height: 45vh !important;
   }
-  
 }
 
 /* //APP SECTION// */
+
 /* .app {
+
+
+
+
 
 } */
 
 /* //NAVBAR SECTION// */
+
 .navbar {
   display: flex;
- flex-direction: row; /* Change to 'row' for horizontal layout */
- gap: 2rem;
- align-items: center;
- padding: 2rem;
+
+  flex-direction: row; /* Change to 'row' for horizontal layout */
+
+  gap: 2rem;
+
+  align-items: center;
+
+  padding: 2rem;
+
   background-color: #000;
+
   /* color: #fff; */
+
   justify-content: space-between;
 }
 
-.searchbar1{
-  
-    padding-left: 2px;
-    background-color: #fff; /* white */
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12); /* elevation 2 */
-    border-radius: 10px; /*  border radius */
-    border-radius: 20px; /* rounder border radius */
-    border: '1px solid #e3e3e3';
-    box-shadow: none;
-    padding: 5px 10px;
+.searchbar1 {
+  padding-left: 2px;
+
+  background-color: #fff; /* white */
+
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); /* elevation 2 */
+
+  border-radius: 10px; /*  border radius */
+
+  border-radius: 20px; /* rounder border radius */
+
+  border: "1px solid #e3e3e3";
+
+  box-shadow: none;
+
+  padding: 5px 10px;
+
   @media screen and (max-width: 600px) {
     margin-right: 5px;
   }
 }
 
-.searchbar2{
-  border:none;
-  outline:none;
-  width:350px;
-}
+.searchbar2 {
+  border: none;
 
+  outline: none;
+
+  width: 350px;
+}
 
 .feed1 {
   /* Default to column layout */
+
   display: flex;
+
   flex-direction: column;
- }
- 
- /* Override to row layout on medium screens */
- @media (min-width: 960px) { /* 960px is typically the breakpoint for 'md' screens in MUI */
+}
+
+/* Override to row layout on medium screens */
+
+@media (min-width: 960px) {
+  /* 960px is typically the breakpoint for 'md' screens in MUI */
+
   .feed1 {
     flex-direction: row;
   }
- }
+}
 
- .feed2 {
+.feed2 {
   height: auto;
+
   border-right: 1px solid #3d3d3d;
+
   padding-left: 0;
+
   padding-right: 0;
- }
- 
- @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
   .feed2 {
     height: 92vh;
+
     padding-left: 2rem;
+
     padding-right: 2rem;
   }
- }
- 
- .copyright {
+}
+
+.copyright {
   /* Assuming body2 corresponds to the following styles */
+
   font-family: Roboto, Helvetica, Arial, sans-serif;
+
   font-size: 0.875rem;
+
   font-weight: 400;
+
   line-height: 1.5;
+
   letter-spacing: 0.01071em;
+
   color: #fff;
+
   /* The equivalent of mt: 1.5 in Material-UI */
+
   margin-top: 1.5em;
- }
+}
 
- .feed3{
+.feed3 {
   padding: 2px;
- }
- 
- .feed4{
-    /* font-size: size for h4 */
-    font-weight: bold;
-    margin-bottom: 2px; /* size for mb={2} */
-   }
+}
+
+.feed4 {
+  /* font-size: size for h4 */
+
+  font-weight: bold;
+
+  margin-bottom: 2px; /* size for mb={2} */
+}
+
+/* //sidebar// */
+
+.sidebar {
+  display: flex;
+
+  flex-direction: row;
+
+  overflow-y: auto;
+
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  /* Assuming 'md' corresponds to 768px */
+
+  .sidebar {
+    height: 95vh;
+
+    flex-direction: column;
+  }
+}
+
+/* .fetchFromAPI {
 
 
- /* //sidebar// */
- 
-    .sidebar {
-      display: flex;
-      flex-direction: row;
-      overflow-y: auto;
-      height: auto;
-     }
-     
-     @media (min-width: 768px) { /* Assuming 'md' corresponds to 768px */
-      .sidebar {
-        height: 95vh;
-        flex-direction: column;
-      }
-     }
-     
-  
-     /* .fetchFromAPI {
      } */
 
+/* //videos// */
 
-      /* //videos// */
-    
-      .videos1 {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-       }
-       
-       @media screen and (min-width: 600px) {
-        .videos1 {
-          flex-direction: row;
-          gap: 2rem;
-        }
-       }
-       
-       @media screen and (min-width: 960px) {
-        .videos1 {
-          gap: 4rem;
-        }
-       }
+.videos1 {
+  display: flex;
 
+  flex-wrap: wrap;
 
-        /* //videoCard// */
-        .videocard1 {
-          width: 100%;
-          height: 180px;
-          border-radius: 0;
-          box-shadow: none;
-         }
-         
-         @media (min-width: 600px) {
-          .videocard1 {
-             width: 358px;
-          }
-         }
-         
-         @media (min-width: 960px) {
-          .videocard1 {
-             width: 320px;
-          }
-         }
-         
-         .videocard2 {
-          height: 180px;
-         }
-         @media (max-width: 600px) { /* This corresponds to the xs breakpoint */
-          .videocard2 {
-             width: 100%;
-          }
-         }
-         
-         @media (min-width: 601px) { /* This corresponds to the sm breakpoint */
-          .videocard2 {
-             width: 358px;
-          }
-         }
-         
-         .videocard3 {
-           background-color: #1E1E1E;
-          height: 106px;
-          display: flex;
-          flex-direction: column;
-         }
-          
-         .videocard4 {
-          /* Assuming the subtitle1 variant applies these properties */
-          font-size: 1rem; /* Adjust as needed */
-          line-height: 1.5; /* Adjust as needed */
-          font-weight: bold;
-          color: #FFF;
-         }
+  gap: 1rem;
+}
 
-         .videocard5 {
-          color: gray;
-         }
+@media screen and (min-width: 600px) {
+  .videos1 {
+    flex-direction: row;
 
-          .videocard6 {
-            font-size: 12px;
-              color: gray;
-              margin-left: 5px;
-             }
-             
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .videos1 {
+    gap: 4rem;
+  }
+}
+
+/* //videoCard// */
+
+.videocard1 {
+  width: 100%;
+
+  height: 180px;
+
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+@media (min-width: 600px) {
+  .videocard1 {
+    width: 358px;
+  }
+}
+
+@media (min-width: 960px) {
+  .videocard1 {
+    width: 320px;
+  }
+}
+
+.videocard2 {
+  height: 180px;
+}
+
+@media (max-width: 600px) {
+  /* This corresponds to the xs breakpoint */
+
+  .videocard2 {
+    width: 100%;
+  }
+}
+
+@media (min-width: 601px) {
+  /* This corresponds to the sm breakpoint */
+
+  .videocard2 {
+    width: 358px;
+  }
+}
+
+.videocard3 {
+  background-color: #1e1e1e;
+
+  height: 106px;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.videocard4 {
+  /* Assuming the subtitle1 variant applies these properties */
+
+  font-size: 1rem; /* Adjust as needed */
+
+  line-height: 1.5; /* Adjust as needed */
+
+  font-weight: bold;
+
+  color: #fff;
+}
+
+.videocard5 {
+  color: gray;
+}
+
+.videocard6 {
+  font-size: 12px;
+
+  color: gray;
+
+  margin-left: 5px;
+}
+
 /* channeldetail */
 
-             .channelDetailbox {
-              min-height: 95vh;
-              display: flex;
-              padding: 2px;
-             }
-             
-             .channelDetailbox > div {
-              height: 300px;
-              background: linear-gradient(90deg, rgba(0,238,247,1) 0%, rgba(206,3,184,1) 100%, rgba(0,212,255,1) 100%);
-              z-index: 10;
-             }
-             
-             .channelDetailbox > .channelDetailchannelCard {
-              margin-top: -93px;
-             }
-             
-             .channelDetailbox > .channelDetailvideos {
-              margin-right: 100px;
-             }
+.channelDetailbox {
+  min-height: 95vh;
 
-             .circular-progress {
-              /* Add styles for the circular progress indicator here */
-              width: 40px;
-              height: 40px;
-              border: 4px solid #f3f3f3;
-              border-radius: 50%;
-              border-top: 4px solid #3498db;
-              animation: spin 2s linear infinite;
-             }
-             
-             @keyframes spin {
-               0% { transform: rotate(0deg); }
-               100% { transform: rotate(360deg); }
-             }
-             
-             
-             
-             
-             
-          
+  display: flex;
+
+  padding: 2px;
+}
+
+.channelDetailbox > div {
+  height: 300px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 238, 247, 1) 0%,
+    rgba(206, 3, 184, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+
+  z-index: 10;
+}
+
+.channelDetailbox > .channelDetailchannelCard {
+  margin-top: -93px;
+}
+
+.channelDetailbox > .channelDetailvideos {
+  margin-right: 100px;
+}
+
+.circular-progress {
+  /* Add styles for the circular progress indicator here */
+
+  width: 40px;
+
+  height: 40px;
+
+  border: 4px solid #f3f3f3;
+
+  border-radius: 50%;
+
+  border-top: 4px solid #3498db;
+
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

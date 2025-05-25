@@ -1,53 +1,55 @@
+//  youtubefront\src\components\SearchFeed.jsx
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { Videos } from ".";
 
 const SearchFeed = () => {
-  const [videos, setVideos] = useState(null);
-  const [loading, setLoading] = useState(true);  // For showing loading state
+  const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [s3Videos, setS3Videos] = useState([]);
   const { searchTerm } = useParams();
 
   useEffect(() => {
-    setLoading(true); // Start loading when the search term changes
+    const fetchSearchResults = async () => {
+      try {
+        const data = await fetchFromAPI(`search?searchTerm=${searchTerm}`);
+        setYoutubeVideos(data.youtubeVideos);
+        setS3Videos(data.dbVideos);
+        console.log("searchfeed YouTube Videos:", data.youtubeVideos);
+        console.log("searchfeed S3 Videos:", data.dbVideos);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    };
 
-    // Fetch YouTube and S3 data in parallel
-    Promise.all([
-      fetchFromAPI(`youtube/${searchTerm}`),  // Fetch from YouTube API
-      fetchFromAPI(`s3/${searchTerm}`),      // Fetch from AWS S3
-    ])
-      .then(([youtubeData, s3Data]) => {
-        // Combine both results (YouTube and S3)
-        const combinedVideos = [
-          ...(youtubeData.items || []),  // YouTube videos
-          ...(s3Data.Contents || []),    // S3 media
-        ];
-        setVideos(combinedVideos);
-        setLoading(false);  // Set loading to false when done
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);  // Stop loading even if there's an error
-      });
+    fetchSearchResults();
   }, [searchTerm]);
 
-  if (loading) {
-    return <div>Loading...</div>;  // Display loading message while fetching data
-  }
-
   return (
-    <div style={{ padding: '8px', minHeight: '95vh' }}>
-      <h4 style={{ fontWeight: '900', color: 'white', marginBottom: '24px', marginLeft: '100px' }}>
-        Search Results for <span style={{ color: '#FC1503' }}>{searchTerm}</span> videos
+    <div style={{ padding: "8px", minHeight: "95vh" }}>
+      <h4
+        style={{
+          fontWeight: "900",
+          color: "white",
+          marginBottom: "24px",
+          marginLeft: "100px",
+        }}
+      >
+        Search Results for{" "}
+        <span style={{ color: "#FC1503" }}>{searchTerm}</span> videos
       </h4>
-      <div style={{ display: 'flex' }}>
-        <div style={{ marginRight: '100px' }} />
-        <Videos videos={videos} />
+
+      <div style={{ display: "flex" }}>
+        <div style={{ marginRight: "100px" }} />
+        <div>
+          <h5 style={{ color: "white" }}>YouTube Videos</h5>
+          <Videos videos={youtubeVideos} />
+          <h5 style={{ color: "white" }}>S3 Videos</h5>
+          <Videos videos={s3Videos} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default SearchFeed;
-
-

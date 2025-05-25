@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+     "dev":   "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +19,9 @@
     "@aws-sdk/node-http-handler": "^3.374.0",
     "@aws-sdk/s3-request-presigner": "^3.787.0",
     "aws-sdk": "^2.1692.0",
-    "axios": "^1.8.4",
+   "axios": "^1.9.0",
     "cors": "^2.8.5",
+    "body-parser": "^2.2.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
@@ -28,8 +30,16 @@
     "mysql2": "^3.14.0",
     "node": "^23.11.0",
     "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.9",
     "path": "^0.12.7",
-    "uuid": "^11.1.0"
+    "pm2": "^6.0.5",
+    "uuid": "^11.1.0",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
+
+
+
+

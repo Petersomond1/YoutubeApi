@@ -1,16 +1,16 @@
 // youtubefrontApi\youtubefront\src\utils\fetchFromAPI.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/videos";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api/videos";
 
 const fetchFromAPI = async (endpoint) => {
   try {
     const response = await axios.get(`${BASE_URL}/${endpoint}`, {
       headers: {
-        "Cache-Control": "no-cache", // Prevent caching
+        "Cache-Control": "no-cache",
       },
       params: {
-        t: new Date().getTime(), // Add a timestamp to bust cache
+        t: new Date().getTime(),
       },
     });
     return response.data;

@@ -1,3 +1,4 @@
+// YoutubeApiClient\src\components\Uploader.jsx
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
@@ -11,6 +12,9 @@ const Uploader = ({ onUploadSuccess }) => {
   const [success, setSuccess] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  const MEDIA_BASE_URL = process.env.REACT_APP_API_MEDIA_URL || "http://localhost:5000/api/media";
+
 
   const [metadata, setMetadata] = useState({
     title: '',
@@ -172,7 +176,7 @@ const Uploader = ({ onUploadSuccess }) => {
       formData.append('metadata', JSON.stringify(uploadMetadata));
 
       // Upload to backend
-      const response = await axios.post('http://localhost:5000/api/media/upload', formData, {
+      const response = await axios.post(`${MEDIA_BASE_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);

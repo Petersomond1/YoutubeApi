@@ -1,8 +1,8 @@
 // youtubefrontApi\youtubefront\src\utils\fetchFromAPI.js
 import axios from "axios";
 
-const VIDEOS_BASE_URL = process.env.REACT_APP_API_VIDEOS_URL || "http://localhost:5000/api/videos";
-const MEDIA_BASE_URL = process.env.REACT_APP_API_MEDIA_URL || "http://localhost:5000/api/media";
+const VIDEOS_BASE_URL = 'api/videos'; ;
+const MEDIA_BASE_URL = 'api/media'; ;
 
 const fetchFromAPI = async (endpoint, isMedia = false) => {
   const BASE_URL = isMedia ? MEDIA_BASE_URL : VIDEOS_BASE_URL;

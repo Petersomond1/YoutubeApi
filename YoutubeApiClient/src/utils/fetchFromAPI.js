@@ -6,6 +6,9 @@ const MEDIA_BASE_URL = 'api/media'; ;
 
 const fetchFromAPI = async (endpoint, isMedia = false) => {
   const BASE_URL = isMedia ? MEDIA_BASE_URL : VIDEOS_BASE_URL;
+  console.log("Fetching from API:", `${BASE_URL}/${endpoint}`);
+  console.log("Current time:",BASE_URL);
+  
 
   try {
     const response = await axios.get(`${BASE_URL}/${endpoint}`, {

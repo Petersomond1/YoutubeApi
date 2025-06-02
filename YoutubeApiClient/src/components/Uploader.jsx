@@ -13,7 +13,7 @@ const Uploader = ({ onUploadSuccess }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const MEDIA_BASE_URL = process.env.REACT_APP_API_MEDIA_URL || "http://localhost:5000/api/media";
+  const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL || "http://localhost:5000/api/media";
 
 
   const [metadata, setMetadata] = useState({

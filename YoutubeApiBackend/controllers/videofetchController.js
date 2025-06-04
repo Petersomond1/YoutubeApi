@@ -2,6 +2,7 @@ const axios = require("axios");
 const NodeCache = require("node-cache");
 const cache = new NodeCache({ stdTTL: 300 });
 const { pool } = require("../config/db");
+const { setCORSHeaders } = require('../utils/corsUtils');
 
 // Use environment variable for API key (security improvement)
 const RAPID_API_KEY = process.env.RAPID_API_KEY || "eaf54a6583msh168339a792b7460p16e58fjsn309b077e0b30";
@@ -17,6 +18,7 @@ const options = {
 const videoController = {
 
   getAllVideos: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       const { category = "programming", pageToken = "" } = req.query;
 
@@ -133,6 +135,7 @@ const videoController = {
   },
 
   searchVideos: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       const { searchTerm = "", maxResults = 5 } = req.query;
 
@@ -248,6 +251,7 @@ const videoController = {
   },
 
   getVideoById: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       const { id } = req.params;
       const { source } = req.query; // 'youtube' or 'database'
@@ -439,6 +443,7 @@ const videoController = {
 
   // Get detailed information about a specific video
   get1UtubeVideoAndDetails: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       const { videoId } = req.params;
       if (!videoId || typeof videoId !== "string") {
@@ -495,6 +500,7 @@ const videoController = {
   },
 
   get1S3VideoAndDetails: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       // Fetching metadata from MySQL database
       const { id } = req.params;
@@ -526,6 +532,7 @@ const videoController = {
   },
 
   getChannelDetails: async (req, res) => {
+    setCORSHeaders(res, req);
     try {
       const { id } = req.params;
       if (!id) {

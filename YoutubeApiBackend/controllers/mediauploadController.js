@@ -252,47 +252,9 @@ const uploadToS3 = async (req, res) => {
 
 
 
-// Store metadata in DB
-// const storeMetadataInDB = async (fileMetadata) => {
-// const query = `
-//   INSERT INTO media_files (
-//     file_name, file_url, file_type, size, description, title, tags, thumbnail, category,
-//     duration, resolution, format, monetization, rights_claims, comments, video_transcript, geo_coordinates
-//   ) VALUES (
-//    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-//   )`;
 
-// const values = [
-//   fileMetadata.fileName,
-//   fileMetadata.fileUrl,
-//   fileMetadata.fileType,
-//   fileMetadata.size,
-//   fileMetadata.description,
-//   fileMetadata.title,
-//   fileMetadata.tags,
-//   fileMetadata.thumbnail,
-//   fileMetadata.category,
-//   fileMetadata.duration,
-//   fileMetadata.resolution,
-//   fileMetadata.format,
-//   fileMetadata.monetization,
-//   fileMetadata.rightsClaims,
-//   fileMetadata.comments,
-//   fileMetadata.videoTranscript,
-//   fileMetadata.geoCoordinates,
-// ];
+module.exports = { generateUploadURL, uploadToS3, storeMetadataInDB, upload, S3 }; 
 
-// try {
-//   console.log('Executing query:', query);
-//   console.log('With values:', values);
-//   await pool.query(query, values);
-//   console.log('Metadata successfully stored in the database.');
-// } catch (err) {
-//   console.error('Error storing metadata in DB:', err.message);
-//   throw new Error('Database error');
-// }
-// };
 
-module.exports = { generateUploadURL, uploadToS3, storeMetadataInDB, upload, S3,
-  //   fetchFromS3, fetchFromS3AndDB, fetchFromYoutube 
-     }; 
+
+     

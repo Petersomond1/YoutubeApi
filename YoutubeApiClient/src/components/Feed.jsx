@@ -1,4 +1,3 @@
-//  youtubefront\src\components\Feed.jsx
 import React, { useEffect, useState } from "react";
 import "../index.css";
 import Sidebar from "./Sidebar";
@@ -15,10 +14,12 @@ function Feed() {
   const fetchVideos = async (pageToken = "") => {
     try {
       setLoading(true);
+      
+      // Use the updated endpoint structure
       const data = await fetchFromAPI(`all?category=${selectedCategory}&pageToken=${pageToken}`);
       
       if (!data.success) {
-        throw new Error(data.message || "Failed to fetch videos");
+        throw new Error(data.error || "Failed to fetch videos");
       }
 
       if (pageToken) {
@@ -26,7 +27,7 @@ function Feed() {
         setAllVideos((prev) => [
           ...prev.filter(video => video.source === 'database'), // Keep existing database videos
           ...prev.filter(video => video.source === 'youtube'), // Keep existing YouTube videos
-          ...data.youtubeVideos // Add new YouTube videos
+          ...(data.youtubeVideos || []) // Add new YouTube videos
         ]);
       } else {
         // If it's a fresh fetch, replace all videos
@@ -34,6 +35,8 @@ function Feed() {
       }
 
       console.log("@feed Fetched all videos:", data.videos);
+      console.log("@feed YouTube count:", data.youtubeCount);
+      console.log("@feed Database count:", data.databaseCount);
       setNextPageToken(data.nextPageToken);
       setError(null);
     } catch (error) {
@@ -43,7 +46,6 @@ function Feed() {
       setLoading(false);
     }
   };
-
 
   // Reset and fetch videos when category changes
   useEffect(() => {
@@ -68,12 +70,37 @@ function Feed() {
         <h4 className="feed4" style={{ color: "white" }}>
           {selectedCategory} <span style={{ color: "#FC1503" }}>videos</span>
         </h4>
+        
+        {loading && !allVideos.length && (
+          <p style={{ color: "white", marginLeft: "100px" }}>Loading videos...</p>
+        )}
+        
         {error ? (
-          <p style={{ color: "red" }}>{error}</p>
+          <p style={{ color: "red", marginLeft: "100px" }}>{error}</p>
         ) : (
           <>
             <Videos videos={allVideos} />
             
+            {/* Load More Button (if there are more YouTube videos to load) */}
+            {nextPageToken && !loading && (
+              <div style={{ textAlign: "center", margin: "20px" }}>
+                <button
+                  onClick={() => fetchVideos(nextPageToken)}
+                  style={{
+                    padding: "10px 20px",
+                    backgroundColor: "#FC1503",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px"
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? "Loading..." : "Load More YouTube Videos"}
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
@@ -81,6 +108,4 @@ function Feed() {
   );
 }
 
-
 export default Feed;
-

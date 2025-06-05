@@ -1,14 +1,27 @@
-// youtubefront\src\components\ChannelCard.jsx
+// YoutubeApiClient/src/components/ChannelCard.jsx
 import React from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
-//import { demoProfilePicture } from "../utils/Constants";
 import "../index.css";
 import { Link } from "react-router-dom";
 
 const ChannelCard = ({ channelDetail = {}, marginTop }) => {
-  const { channelTitle,
-    // thumbnail
-   } = channelDetail;
+  // Handle both YouTube API response and your custom response structures
+  const channelTitle = channelDetail.channelTitle || 
+                      channelDetail.snippet?.title || 
+                      channelDetail.title || 
+                      "Unknown Channel";
+  
+  const channelId = channelDetail.channelId || 
+                   channelDetail.id?.channelId || 
+                   channelDetail.id || 
+                   channelDetail.snippet?.channelId;
+
+  const thumbnail = channelDetail.thumbnail || 
+                   channelDetail.snippet?.thumbnails?.high?.url || 
+                   channelDetail.snippet?.thumbnails?.default?.url;
+
+  const subscriberCount = channelDetail.subscriberCount || 
+                         channelDetail.statistics?.subscriberCount;
 
   if (!channelTitle) {
     console.warn("Invalid channel data:", channelDetail);
@@ -29,7 +42,7 @@ const ChannelCard = ({ channelDetail = {}, marginTop }) => {
         marginTop,
       }}
     >
-      <Link to={`/channel/${channelTitle}`}>
+      <Link to={`/channel/${channelId || channelTitle}`}>
         <div
           style={{
             display: "flex",
@@ -39,23 +52,31 @@ const ChannelCard = ({ channelDetail = {}, marginTop }) => {
             color: "#fff",
           }}
         >
-          {/* <img
-            src={thumbnail || demoProfilePicture}
-            alt={channelTitle || "Channel Thumbnail"}
-            style={{
-              borderRadius: "50%",
-              height: "180px",
-              width: "180px",
-              marginBottom: "2px",
-              border: "1px solid #e3e3e3",
-            }}
-          /> */}
+          {thumbnail && (
+            <img
+              src={thumbnail}
+              alt={channelTitle || "Channel Thumbnail"}
+              style={{
+                borderRadius: "50%",
+                height: "180px",
+                width: "180px",
+                marginBottom: "2px",
+                border: "1px solid #e3e3e3",
+                objectFit: "cover",
+              }}
+            />
+          )}
           <h6>
-            {channelTitle || "Channel Title"}{" "}
+            {channelTitle}{" "}
             <FaRegCheckCircle
               style={{ fontSize: "14px", color: "gray", marginLeft: "5px" }}
             />
           </h6>
+          {subscriberCount && (
+            <p style={{ color: "#aaa", fontSize: "12px", marginTop: "5px" }}>
+              {parseInt(subscriberCount).toLocaleString()} subscribers
+            </p>
+          )}
         </div>
       </Link>
     </div>

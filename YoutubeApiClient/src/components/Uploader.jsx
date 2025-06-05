@@ -1,4 +1,3 @@
-// YoutubeApiClient\src\components\Uploader.jsx
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
@@ -13,8 +12,8 @@ const Uploader = ({ onUploadSuccess }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL || "http://localhost:5000/api/media";
-
+  // Use environment variable for media base URL
+  const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL;
 
   const [metadata, setMetadata] = useState({
     title: '',
@@ -143,12 +142,17 @@ const Uploader = ({ onUploadSuccess }) => {
     }
   };
 
-  // Main upload function
+  // Main upload function - UPDATED for new backend structure
   const handleFileUpload = async (event) => {
     event.preventDefault();
 
     if (!file) {
       setError('Please select a file to upload');
+      return;
+    }
+
+    if (!MEDIA_BASE_URL) {
+      setError('VITE_MEDIA_BASE_URL is not configured in your .env file');
       return;
     }
 
@@ -166,7 +170,7 @@ const Uploader = ({ onUploadSuccess }) => {
         formData.append('thumbnail', thumbnailFile);
       }
       
-      // Prepare metadata
+      // Prepare metadata - updated for new backend structure
       const uploadMetadata = {
         ...metadata,
         // Use manual URL if no file thumbnail
@@ -175,7 +179,10 @@ const Uploader = ({ onUploadSuccess }) => {
       
       formData.append('metadata', JSON.stringify(uploadMetadata));
 
-      // Upload to backend
+      console.log('📤 Uploading to:', `${MEDIA_BASE_URL}/upload`);
+      console.log('📝 Metadata:', uploadMetadata);
+
+      // Upload to backend using the new endpoint
       const response = await axios.post(`${MEDIA_BASE_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
@@ -184,8 +191,8 @@ const Uploader = ({ onUploadSuccess }) => {
         },
       });
 
-      if (response.status === 200) {
-        setSuccess('File uploaded successfully!');
+      if (response.status === 200 && response.data.success) {
+        setSuccess(`File uploaded successfully! Available in "${metadata.category}" category.`);
         
         // Reset form
         setFile(null);
@@ -208,11 +215,14 @@ const Uploader = ({ onUploadSuccess }) => {
         });
         
         // Reset file inputs
-        event.target.reset();
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => input.value = '');
         
         if (onUploadSuccess) {
           onUploadSuccess(response.data);
         }
+      } else {
+        throw new Error(response.data.error || 'Upload failed');
       }
     } catch (err) {
       console.error('Error uploading file:', err);
@@ -307,6 +317,7 @@ const Uploader = ({ onUploadSuccess }) => {
               <option value="music">Music</option>
               <option value="sports">Sports</option>
               <option value="news">News</option>
+              <option value="Atlanta">Atlanta</option>
             </select>
           </div>
         </div>
@@ -466,6 +477,62 @@ const Uploader = ({ onUploadSuccess }) => {
             }}
           />
         </div>
+
+        {/* Advanced Metadata (Collapsible) */}
+        <details style={{ backgroundColor: '#2a2a2a', padding: '15px', borderRadius: '5px', border: '1px solid #333' }}>
+          <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '10px', color: '#FC1503' }}>
+            Advanced Options
+          </summary>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '15px' }}>
+            <input
+              type="text"
+              name="rightsClaims"
+              placeholder="Rights Claims"
+              value={metadata.rightsClaims}
+              onChange={handleMetadataChange}
+              style={{ 
+                padding: '10px', 
+                borderRadius: '5px', 
+                border: '1px solid #333',
+                backgroundColor: '#1a1a1a',
+                color: 'white'
+              }}
+            />
+            
+            <input
+              type="text"
+              name="geoCoordinates"
+              placeholder="Geo Coordinates (lat,lng)"
+              value={metadata.geoCoordinates}
+              onChange={handleMetadataChange}
+              style={{ 
+                padding: '10px', 
+                borderRadius: '5px', 
+                border: '1px solid #333',
+                backgroundColor: '#1a1a1a',
+                color: 'white'
+              }}
+            />
+          </div>
+          
+          <textarea
+            name="videoTranscript"
+            placeholder="Video Transcript"
+            value={metadata.videoTranscript}
+            onChange={handleMetadataChange}
+            rows="3"
+            style={{ 
+              width: '100%', 
+              padding: '10px', 
+              borderRadius: '5px', 
+              border: '1px solid #333',
+              backgroundColor: '#1a1a1a',
+              color: 'white',
+              resize: 'vertical',
+              marginTop: '15px'
+            }}
+          />
+        </details>
 
         {/* Upload Button */}
         <button  

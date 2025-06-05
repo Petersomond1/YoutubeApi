@@ -1,7 +1,6 @@
-//youtube_api\config\S3.js
-require('dotenv').config(); 
+// YoutubeApiBackend\config\S3.js
+require('dotenv').config();
 const { S3Client, ListBucketsCommand } = require("@aws-sdk/client-s3");
-
 
 const S3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -11,7 +10,7 @@ const S3 = new S3Client({
   },
 });
 
-// Proper test using ListBucketsCommand
+// Test S3 connection
 const testS3Connection = async () => {
   try {
     const command = new ListBucketsCommand();
